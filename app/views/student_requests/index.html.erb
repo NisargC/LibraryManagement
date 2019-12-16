@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+
+<h1>Books</h1>
+
+<table id="table">
+  <thead>
+  <tr>
+    <th>Request Type</th>
+    <th>ISBN</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @student_requests.each do |request| %>
+    <tr>
+      <%if request.respond_to?(:status) %>
+      <td>Special Collection Book Request</td>
+        <%else %>
+        <td>Hold Request</td>
+        <%end %>
+      <td><%=request.isbn %></td>
+      <%if request.respond_to?(:status) %>
+        <td><%= link_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%else %>
+        <td><%= link_to 'Delete', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end %>
+
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>

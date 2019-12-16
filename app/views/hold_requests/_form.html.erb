@@ -1,0 +1,17 @@
+<%= form_with(model: hold_request, local: true) do |form| %>
+  <% if hold_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hold_request.errors.count, "error") %> prohibited this hold_request from being saved:</h2>
+
+      <ul>
+      <% hold_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

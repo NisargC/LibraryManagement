@@ -1,0 +1,17 @@
+<%= form_with(model: return_book, local: true) do |form| %>
+  <% if return_book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(return_book.errors.count, "error") %> prohibited this return_book from being saved:</h2>
+
+      <ul>
+      <% return_book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Library List</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>University</th>
+      <th>Location</th>
+      <th>Borrowing time</th>
+      <th>Fine per day</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if !@libraries.nil? then @libraries.each do |library| %>
+      <tr>
+        <td><%= library.name %></td>
+        <td><%= library.university%></td>
+        <td><%= library.location%></td>
+        <td><%= library.max_days%> days</td>
+        <td><%= library.overdue_fines%></td>
+        <td><%= link_to 'View Library', library %></td>
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+          <td><%= link_to 'Edit Library', edit_library_path(library) %></td>
+
+        <%end %>
+
+
+        <%if session[:role] == 'admin' %>
+          <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end %>
+
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

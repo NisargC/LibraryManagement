@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+  <title>LibraryManagement</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <div id="header">
+    <b>Library Management System</b>
+  </div>
+</head>
+
+
+<body>
+
+</ul>
+
+<% if session[:role] == "admin" || session[:role] == "student" || session[:role] == "librarian"%>
+  <ul>
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Libraries</a>
+      <div class="dropdown-content">
+        <%if session[:role] == 'admin'%>
+          <%= link_to "View/Edit Libraries", libraries_path %>
+        <%end %>
+
+        <%if session[:role] == 'student'%>
+          <%= link_to "View Libraries", libraries_path %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' %>
+          <%= link_to "View/Edit Library", libraries_path(Librarian.where(user_id: session[:user_id]).pluck(:library_id)) %>
+        <%end %>
+      </div>
+    </li>
+
+
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Books</a>
+      <div class="dropdown-content">
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+          <%= link_to "Create Book",  new_book_path%>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+          <%= link_to "Edit/Delete Book", books_path %>
+        <%end %>
+
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' || session[:role] == 'student' %>
+          <%= link_to "View Books", books_path %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' || session[:role] == 'student' %>
+          <%= link_to "View Checked Out books", checkedout_books_path%>
+        <%end %>
+
+        <%if session[:role] == 'student' || session[:role] == 'admin' %>
+          <%= link_to "Return Book", return_books_path%>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+          <%= link_to "View borrow history of books", book_histories_path %>
+        <%end %>
+
+
+        <%if session[:role] == 'student' || session[:role] == 'admin' %>
+          <%= link_to "View Bookmarks", bookmarks_path %>
+        <%end %>
+
+      </div>
+    </li>
+
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Requests</a>
+      <div class="dropdown-content">
+        <%if session[:role] == 'admin' %>
+          <%= link_to "Librarian/special collection hold Requests", requests_path %>
+        <%end %>
+
+        <%if session[:role] == 'librarian'  %>
+          <%= link_to "Special collection hold Requests", requests_path %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+          <%= link_to "View Overdue Student List", overdue_students_path %>
+        <%elsif session[:role] == 'student' %>
+          <%= link_to "View Overdue Fines", overdue_students_path %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' || session[:role] == 'student' %>
+          <%= link_to "View Hold Requests", hold_requests_path %>
+        <%end %>
+
+        <%if session[:role] == 'student' %>
+          <%= link_to "View/Modify Reservations", student_requests_path%>
+        <%end %>
+      </div>
+    </li>
+
+
+    <%if session[:role] == 'admin' %>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Users</a>
+        <div class="dropdown-content">
+          <%= link_to "View/Modify/Create Students", students_url %>
+          <%= link_to "View/Modify/Create Librarians", librarians_url %>
+        </div>
+      </li>
+    <%end %>
+
+
+
+
+    <li class="dropdown" style="float:right">
+      <a href="javascript:void(0)" class="dropbtn">Profile</a>
+      <div class="dropdown-content">
+        <%if session[:role] == 'admin' %>
+          <%= link_to "View Profile", user_path(session[:user_id]) %>
+        <%end %>
+
+        <%if session[:role] == 'admin'%>
+          <%= link_to "Edit Profile", edit_user_path(session[:user_id]) %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' %>
+          <%= link_to "View Profile", librarian_path(session[:user_id]) %>
+        <%end %>
+
+        <%if session[:role] == 'librarian'%>
+          <%= link_to "Edit Profile", edit_librarian_path(Librarian.where(user_id:session[:user_id]).limit(1)[0].id) %>
+        <%end %>
+
+        <%if session[:role] == 'student'%>
+          <%= link_to "View Profile", student_path(Student.where(user_id:User.where(id:session[:user_id]).limit(1)[0].id).limit(1)[0].id  ) %>
+        <%end %>
+
+        <%if session[:role] == 'student' %>
+          <%= link_to "Edit Profile", edit_student_path(Student.where(user_id:User.where(id:session[:user_id]).limit(1)[0].id).limit(1)[0].id) %>
+        <%end %>
+
+        <%if session[:role] == 'librarian' || session[:role] == 'admin' || session[:role] == 'student' %>
+          <%= link_to "Logout", auth_destroy_url %>
+        <%end %>
+      </div>
+    </li>
+
+    <li class="dropdown" style="float: right">
+      <a href="javascript:void(0)" class="dropbtn">Welcome <%= session[:name] %></a>
+    </li>
+  </ul>
+
+
+<% end %>
+
+
+
+<p id=”alert”><%= alert %></p>
+<div id="content">
+  <%= yield %>
+</div>
+
+</body>
+
+</html>
+

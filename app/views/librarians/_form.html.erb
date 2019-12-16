@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+<%= form_with(model: librarian, local: true) do |form| %>
+  <% if librarian.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(librarian.errors.count, "error") %> prohibited this librarian from being saved:</h2>
+
+      <ul>
+      <% librarian.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%if flash[:redirectFromSU] == 1 %>
+    <% librarian_user =  User.where(id: flash[:user_id]).first %>
+    <% new_librarian = 1  %>
+  <%elsif @librarian[:user_id] %>
+    <% edit_librarian = 1 %>
+    <% librarian_user =  User.find(@librarian[:user_id]) %>
+  <%elsif session[:role] == "admin" %>
+    <% flash[:redirectFromSU]=0 %>
+    <% admin =1 %>
+    <% librarian_user = {:name=>"", :email=>"", :password=>""} %>
+  <%end %>
+
+
+
+
+
+
+  <!-- user id-->
+  <div class="field">
+    <% if new_librarian ==1 || edit_librarian ==1%>
+      <%= form.hidden_field :user_id, :value => librarian_user[:id], :readonly => true  %>
+    <% elsif admin == 1%>
+      <%= form.hidden_field :user_id, :value => librarian_user[:id]  %>
+    <% end %>
+  </div>
+  <br/>
+
+
+  <!-- name -->
+  <div class="field">
+    <% if new_librarian ==1 %>
+      <%= "Name :"+librarian_user[:name] %>
+    <% elsif edit_librarian ==1 || admin ==1 %>
+      <%= form.label "Name" %><br />
+      <%= form.text_field :name, :value => librarian_user[:name]  %>
+    <% end %>
+  </div>
+  <br/>
+
+
+  <!-- email -->
+  <div class="field">
+    <% if new_librarian ==1 %>
+      <%= "Email : "+ librarian_user[:email]%>
+    <% elsif edit_librarian ==1 || admin ==1 %>
+      <%= form.label :email %><br />
+      <%= form.text_field :email, :value => librarian_user[:email]  %>
+    <%end %>
+  </div>
+  <br/>
+
+
+  <!-- password -->
+  <div class="field">
+    <% if new_librarian ==1 %>
+      <% "Password : "+Base64.decode64(librarian_user[:password])%>
+    <% elsif edit_librarian ==1 || admin ==1 %>
+      <%= form.label :password %><br />
+      <%= form.password_field :password ,:value => Base64.decode64(librarian_user[:password])%>
+    <% end %>
+  </div>
+
+
+
+  <div class="field">
+    <%= form.label "Library" %><br/>
+    <%= select("librarian", "library_id", Library.all.collect{ |c| [ c.name, c.id] }) %>
+  </div>
+  <br/>
+
+  <div class="actions">
+    <% if edit_librarian == 1 %>
+      <%= form.submit data: {confirm: "Are you sure?"}%>
+    <%else %>
+      <%= form.submit%>
+      <% if new_librarian ==1 %>
+        <% flash[:redirectFromSU] = 1%>
+      <% end %>
+    <%end %>
+  </div>
+<% end %>

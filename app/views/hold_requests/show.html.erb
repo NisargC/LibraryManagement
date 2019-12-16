@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>ISBN:</b>
+  <%=@hold_request.isbn %>
+</p>
+
+<p>
+  <%user = User.where(id:@hold_request[:user_id])[0] %>
+  <b>User:</b>
+  <%=user.name %>
+</p>
+
+<%= link_to 'Edit', edit_hold_request_path(@hold_request) %> |

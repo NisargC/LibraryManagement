@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bookmarks</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookmarks.each do |bookmark| %>
+      <tr>
+        <td><%=bookmark.isbn %></td>
+        <%book = Book.where(isbn:bookmark.isbn).first %>
+        <td><%= book.title%></td>
+        <td><%= link_to 'View Book', book_url(book.id) %></td>
+        <td><%= button_to 'Delete Bookmark', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

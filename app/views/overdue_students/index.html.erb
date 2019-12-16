@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Overdues</h1>
+
+<table id="table">
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Total Overdue</th>
+
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users_with_overdues.each do |user, overdue| %>
+    <tr>
+      <td><%=User.where(id:user)[0].name %></td>
+      <td><%=overdue %></td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hold Requests</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>ISBN</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hold_requests.each do |hold_request| %>
+      <tr>
+        <%user = User.where(id:hold_request[:user_id])[0] %>
+        <td><%=user.name %></td>
+        <td><%=hold_request.isbn %></td>
+        <td><%=Book.where(isbn:hold_request.isbn).first[:title] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

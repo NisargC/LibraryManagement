@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_with(model: student, local: true) do |f| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <ul>
+      <% student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%if flash[:redirectFromSU] == 1 %>
+    <% student_user =  User.where(id: flash[:tmp_id]).first %>
+    <% new_student = 1  %>
+  <%elsif @student[:user_id] %>
+    <% edit_student = 1 %>
+    <% student_user =  User.find(@student[:user_id]) %>
+  <%elsif session[:role] == "admin" %>
+    <% flash[:redirectFromSU] =0 %>
+    <% admin =1 %>
+    <%student_user = {:name=>"", :email=>"", :password=>""} %>
+  <%end %>
+
+  <!-- user id-->
+  <div class="field">
+    <% if new_student ==1 || edit_student ==1%>
+      <%= f.hidden_field :user_id, :value => student_user[:id], :readonly => true  %>
+    <% elsif admin == 1%>
+      <%= f.hidden_field :user_id, :value => student_user[:id]  %>
+    <% end %>
+  </div>
+  <br/>
+
+
+
+  <!-- name -->
+  <div class="field">
+    <% if new_student ==1 %>
+      <%= "Name :"+student_user[:name] %>
+    <% elsif edit_student ==1 || admin ==1 %>
+      <%= f.label "Name" %><br />
+      <%= f.text_field :name, :value => student_user[:name]  %>
+    <% end %>
+  </div>
+  <br/>
+
+
+  <!-- email -->
+  <div class="field">
+    <% if new_student ==1 %>
+      <%= "Email : "+ student_user[:email]%>
+    <% elsif edit_student ==1 || admin ==1 %>
+      <%= f.label :email %><br />
+      <%= f.text_field :email, :value => student_user[:email]  %>
+    <%end %>
+  </div>
+  <br/>
+
+
+  <!-- password -->
+  <div class="field">
+    <% if new_student ==1 %>
+      <% "Password : "+Base64.decode64(student_user[:password])%>
+    <% elsif edit_student ==1 || admin ==1 %>
+      <%= f.label :password %><br />
+      <%= f.password_field :password ,:value => Base64.decode64(student_user[:password])%>
+    <% end %>
+  </div>
+
+
+  <!-- university -->
+  <div class = "field">
+    <% if edit_student == 1 %>
+      <%= "Educational Level : " + @student[:education_level]%>
+     <% elsif new_student==1 || admin ==1 %>
+      <%= f.label :education_level %><br/>
+      <%= select("student", "education_level", [:Masters, :Undergraduate, :PhD]) %>
+     <% end  %>
+  </div>
+
+  <div class="field">
+    <% if edit_student == 1 %>
+      <%= "University : " +@student[:university] %>
+    <% elsif admin==1 || new_student ==1 %>
+      <%= f.label :university %><br />
+      <%= select("student", "university",  Library.all.uniq(&:university).collect{ |c|  c.university}) %>
+    <% end  %>
+  </div>
+
+  <br/>
+
+  <% if admin == 1 || new_student ==1 || edit_student ==1 %>
+  <div class="actions">
+    <% if edit_student == 1 %>
+      <%= f.submit data: {confirm: "Are you sure?"}%>
+    <% else %>
+      <%= f.submit %>
+      <% if new_student ==1 %>
+        <% flash[:redirectFromSU] = 1%>
+      <% end %>
+    <% end %>
+  </div>
+  <%end %>
+<% end %>

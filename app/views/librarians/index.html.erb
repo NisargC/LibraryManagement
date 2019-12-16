@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+<%= form_tag(librarians_path, method: "get") do %>
+  <h2><%= label_tag(:q, "Search by name:") %></h2>
+  <%= text_field_tag(:what) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<h1>Librarians</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Library</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @librarians.each do |librarian| %>
+      <tr>
+        <%librarianUser = User.where(id:librarian[:user_id]).limit(1)[0] %>
+        <%library = Library.where(id:librarian[:library_id]).limit(1)[0] %>
+        <td><%=librarianUser[:name] %></td>
+        <td><%=librarianUser[:email] %></td>
+        <td><%=library[:name] %></td>
+        <td><%= link_to 'Show', librarian %></td>
+        <td><%= link_to 'Edit', edit_librarian_path(librarian) %></td>
+        <td><%= link_to 'Destroy', librarian, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div id="createNewthings">
+<%if session[:role] == 'admin' %>
+  <%= link_to 'New Librarian', new_librarian_path %>
+<%end %>
+</div>

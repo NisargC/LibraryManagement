@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Admin's Profile</h2>
+
+<table id="table">
+  <tbody>
+  <tr>
+    <td>Name</td>
+    <td><%=@user.name %></td>
+  </tr>
+
+
+  <tr>
+    <td>Email</td>
+    <td><%=@user.email %></td>
+  </tr>
+
+  </tbody>
+</table>
+
+<br><br>
+<div id="createNewthings">
+<%= link_to 'Edit', edit_user_path(@user) %>
+</div>
+</br>
+</br>
+<h4>Kindly use the navigation bar to access functionalities</h4>

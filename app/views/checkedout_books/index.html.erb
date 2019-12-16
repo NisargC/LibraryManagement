@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Checked Out Books</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Borrowed by</th>
+      <th>Borrowed on</th>
+      <th>Due on</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @checkedout_books.each do |checkedout_book| %>
+      <tr>
+        <td><%=checkedout_book.isbn %></td>
+        <td><%=Book.where(isbn:checkedout_book.isbn).limit(1)[0].title %></td>
+        <td><%=User.where(id:checkedout_book.user_id).first[:name] %></td>
+        <td><%=checkedout_book.borrowed_on %></td>
+        <td><%=checkedout_book.due_on %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

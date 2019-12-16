@@ -1,0 +1,2 @@
+module BorrowedHistoriesHelper
+end

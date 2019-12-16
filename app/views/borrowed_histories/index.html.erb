@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Borrowed Histories</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Borrowed On</th>
+      <th>Due On</th>
+      <th>Returned On</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @borrowed_histories.each do |borrowed_history| %>
+      <tr>
+        <td><%=borrowed_history.isbn %></td>
+        <td><%=borrowed_history.borrowed_on %></td>
+        <td><%=borrowed_history.due_on %></td>
+        <td><%=borrowed_history.returned_on %></td>
+        <td><%= link_to 'Show', borrowed_history %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

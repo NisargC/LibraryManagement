@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  isbn: MyString
+  title: MyString
+  author: MyString
+  language: MyString
+  published_date: 2019-09-24 10:42:25
+  subject: MyString
+  front_cover: 
+  library: 1
+  edition: MyString
+  special_collection: false
+  count: 1
+
+two:
+  isbn: MyString
+  title: MyString
+  author: MyString
+  language: MyString
+  published_date: 2019-09-24 10:42:25
+  subject: MyString
+  front_cover: 
+  library: 1
+  edition: MyString
+  special_collection: false
+  count: 1

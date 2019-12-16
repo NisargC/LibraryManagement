@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Book Histories</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>History</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @book_histories.each do |isbn, history| %>
+    <%title = BorrowedHistory.where(isbn: isbn).limit(1)[0][:title] %>
+      <tr>
+        <td><%=isbn %></td>
+        <td><%=title %></td>
+        <td><%=history.join(", ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

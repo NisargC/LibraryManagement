@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<%= form_tag(students_path, method: "get") do %>
+  <h2> <%= label_tag(:q, "Search by name:") %></h2>
+  <%= text_field_tag(:what) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<h1>Students</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Education Level</th>
+      <th>University</th>
+      <th>Max books</th>
+      <th>Borrow Count</th>
+      <th>Dues</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+    <% student_user = User.find(student.user_id) %>
+      <tr>
+        <td><%=student_user.name %></td>
+        <td><%=student_user.email %></td>
+        <td><%=student_user.role %></td>
+        <td><%=student.education_level %></td>
+        <td><%=student.university %></td>
+        <td><%=student.max_books %></td>
+        <td><%=student.borrow_count %></td>
+<<<<<<< HEAD
+        <td><%=student.dues %></td>
+=======
+>>>>>>> Added CSS changes
+        <td><%= link_to 'View Student', student %></td>
+        <td><%= link_to 'Edit', edit_student_path(student) %></td>
+        <td><%= link_to 'Delete', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div id="createNewthings">
+<%if session[:role] == 'admin' %>
+  <%= link_to 'New Student', new_student_path %>
+<%end %>
+</div>

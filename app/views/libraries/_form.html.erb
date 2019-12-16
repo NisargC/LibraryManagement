@@ -1,0 +1,44 @@
+<%= form_with(model: library, local: true) do |form| %>
+  <% if library.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(library.errors.count, "error") %> prohibited this library from being saved:</h2>
+
+      <ul>
+      <% library.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="Name">
+    <%= form.label :name %><br />
+    <%= form.text_field :name %>
+  </div>
+  <br>
+  <div class="University">
+    <%= form.label :university %><br />
+    <%= form.text_field :university %>
+    <!--    <%= select("library", "university", Library.all.collect { |c| c.university }.uniq) %>-->
+    <!--    <input type="radio" name="Library[university]" id = "Library[university]" selected=false>Other<br>-->
+  </div>
+  <br>
+  <div class="Location">
+    <%= form.label :location %><br />
+    <%= form.text_field :location %>
+  </div>
+  <br>
+  <div class="Maximum Days">
+    <%= form.label "Maximum number of days a book can be borrowed -" %><br />
+    <%= form.number_field :max_days, min: 0 %>
+  </div>
+  <br>
+  <div class="Overdue fines">
+    <%= form.label "Overdue fines for the books in the library -" %><br />
+    <%= form.number_field :overdue_fines, min: 0, step: 0.1%>
+  </div>
+  <br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  <br>
+<% end %>

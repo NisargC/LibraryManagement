@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>ISBN:</b>
+  <%=@borrowed_history.isbn %>
+</p>
+
+<p>
+  <b>Borrowed On:</b>
+  <%=@borrowed_history.borrowed_on %>
+</p>
+
+<p>
+  <b>Due On:</b>
+  <%=@borrowed_history.due_on %>
+</p>
+
+<p>
+  <b>Return Date:</b>
+  <%=@borrowed_history.returned_on %>
+</p>
+
+
+<%= link_to 'View Borrow History', borrowed_histories_path %>

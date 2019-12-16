@@ -1,0 +1,47 @@
+<h1>Currently viewing Library: <%=@library.name%></h1>
+<p id="notice"><%= notice %></p>
+
+
+
+
+
+<table id="table">
+  <tbody>
+  <tr>
+    <td><b>Name of Library</b></td>
+    <td><%=@library.name %></td>
+  </tr>
+
+  <tr>
+    <td><b>University</b></td>
+    <td><%= @library.university %></td>
+  </tr>
+
+  <tr>
+    <td><b>Library Location</b></td>
+    <td><%= @library.location %></td>
+  </tr>
+
+  <tr>
+    <td><b>Library Location</b></td>
+    <td><%= @library.location %></td>
+  </tr>
+
+
+  <tr>
+    <td><b>Maximum number of days a book can be borrowed</b></td>
+    <td><%= @library.max_days %></td>
+  </tr>
+
+  <tr>
+    <td><b>Overdue Book fines</b></td>
+    <td><%= number_with_precision(@library.overdue_fines, :precision => 2) || 0%></td>
+  </tr>
+
+
+  </tbody>
+</table>
+
+<%if session[:role] == 'librarian' || session[:role] == 'admin' %>
+  <%= link_to 'Edit Library', edit_library_path(@library) %>
+<%end %>

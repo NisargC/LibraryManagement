@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+
+<table id="table">
+  <thead>
+  <h3>Special Collection Book Requests -</h3>
+    <tr>
+      <th>Requested User</th>
+      <th>ISBN</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @book_request.each do |request| %>
+      <tr>
+        <%user = User.where(id:request[:user_id]).limit(1)[0] %>
+        <td><%= user[:name] %></td>
+        <td><%= request[:isbn] %></td>
+        <td><%= button_to 'Approve', :action => "approvals", :request => request.user_id, :approval => 1, :isbn => request.isbn %></td>
+        <td><%= button_to 'Reject', :action => "approvals", :request => request.user_id, :approval => 0, :isbn => request.isbn %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%if session[:role] == 'admin' %>
+<table id="table">
+  <thead>
+  <h3>Librarian Requests -</h3>
+  <tr>
+    <th>Requested User</th>
+    <th>Library</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @librarian_request.each do |request| %>
+    <tr>
+      <% user = User.where(id: request[:user_id]).limit(1)[0] %>
+      <% librarian = Librarian.where(user_id: request[:user_id]).limit(1)[0] %>
+      <% library = Library.where(id: librarian[:library_id]).limit(1)[0] %>
+      <td><%= user[:name] %></td>
+      <td><%= library[:name] %></td>
+      <td><%= button_to 'Approve', :action => "approvals", :request => request.user_id, :approval => 1, :isbn => 0 %></td>
+      <td><%= button_to 'Reject', :action => "approvals", :request => request.user_id, :approval => 0, :isbn => 0 %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%end %>

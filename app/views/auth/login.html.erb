@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<div id="login-box">
+  <div class="left">
+    <h1>Login</h1>
+    <%= form_for :user, url: ("/auth/authorize") do |f| %>
+    <p>
+      <%= f.label("", 'Email (xxx@xxx.xxx) :') %>
+      <%= f.text_field :email, :required => true, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}'%>
+    </p>
+
+    <p>
+      <%= f.label :password %>
+      <%= f.password_field :password, :required => true%>
+    </p>
+    <%= f.submit "Login"%>
+    <div id = "logindiv"><%= link_to 'Signup',"signup", :style=> 'color:#FFFFFF;font-size:medium;', :class => 'css_class'%></div>
+  <% end %>
+  </div>
+
+ 
+</div>

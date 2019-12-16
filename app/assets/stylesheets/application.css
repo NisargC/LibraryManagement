@@ -1,0 +1,134 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 20px 16px;
+    text-decoration: none;
+    font-size: x-large;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    font-size: medium;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: red; color: white}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+body{ background-color: beige;}
+
+h1{
+    background-color: #730E15;
+    padding: 20px 16px;
+    color: white;
+}
+
+
+#table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #ddd;}
+
+#table tr:hover {background-color: palevioletred;}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: brown;
+    color: white;
+    font-size: x-large;
+}
+
+#table td {
+    font-size: medium;
+}
+
+
+h2{
+    background-color: #730E15;
+    padding: 12px 16px;
+    color: white;
+
+}
+
+h3{
+    padding: 12px 16px;
+    color: black;
+    font-size: 30px;}
+
+#createNewthings{
+    font-size: large;
+}
+
+#header{
+    background-color: #334;
+    color: white;
+    padding: 20px;
+    font-size: xx-large;
+}
+
+#error_explanation{
+    color: white;
+}

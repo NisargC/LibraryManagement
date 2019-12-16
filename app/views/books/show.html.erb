@@ -1,0 +1,97 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%=@book.title %></h2>
+
+<table id="table">
+  <tbody>
+    <tr>
+      <td><b>ISBN</b></td>
+      <td><%=@book.isbn %></td>
+    </tr>
+    <tr>
+      <td><b>Title</b></td>
+      <td><%=@book.title %></td>
+    </tr>
+
+    <tr>
+      <td><b>Author</b></td>
+      <td><%=@book.author %></td>
+    </tr>
+
+    <tr>
+      <td><b>Language</b></td>
+      <td><%=@book.language %></td>
+    </tr>
+
+    <tr>
+      <td><b>Published Date (MM/DD/YYYY)</b></td>
+      <td><%=@book.published_date.strftime("%m/%d/%Y") %></td>
+
+    </tr>
+
+    <tr>
+      <td><b>Subject</b></td>
+      <td><%=@book.subject %></td>
+    </tr>
+
+    <tr>
+      <td><b>Cover</b></td>
+      <td>
+        <%if @book.front_cover %>
+          <%= image_tag "data:image;base64,#{@book.front_cover}", style: 'height:40px;width:auto;'  %>
+        <%end %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td><b>Library</b></td>
+      <td><%=Library.find(@book.library_id).name %></td>
+    </tr>
+
+    <tr>
+      <td><b>Edition</b></td>
+      <td><%=@book.edition%></td>
+    </tr>
+
+    <tr>
+      <td><b>Special Collection</b></td>
+      <td><%=@book.special_collection%></td>
+    </tr>
+
+    <tr>
+      <td><b>Summary</b></td>
+      <td><%=@book.summary%></td>
+    </tr>
+
+    <tr>
+      <td><b>Hold Requests</b></td>
+      <td> <%=HoldRequest.where(isbn:@book.isbn).size  %></td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+
+<div class="bookmarkbutton">
+  <%= button_to 'Create Bookmark', bookmarks_path(user_id:1234, isbn: @book.isbn ), method: :post%>
+</div>
+
+<div id="checkoutbookbutton">
+  <%= button_to 'Checkout Book', borrowed_histories_path(book_id:@book.id, isbn: @book.isbn, borrowed_on: Time.now, user_id: session[:user_id], due_on: Time.now + (Library.where(id:@book.library_id)[0].max_days*24*60*60)), method: :post%>
+</div>
+
+<div id="editbutton">
+  <%if session[:role]!='student' %>
+    <%= link_to 'Edit', edit_book_path(@book) %> |
+  <%end %>
+</div>
+
+
+<div id="editbutton">
+  <%= link_to 'View Books', books_path %>
+</div>
+
+

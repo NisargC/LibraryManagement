@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Return Books</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Borrowed on</th>
+      <th>Due on</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @return_books.each do |return_book| %>
+      <tr>
+        <td><%=return_book.isbn %></td>
+        <td><%=Book.where(isbn:return_book.isbn).limit(1)[0].title %></td>
+        <td><%=return_book.borrowed_on %></td>
+        <td><%=return_book.due_on %></td>
+        <td><%= button_to 'Return Book', action: 'return', :user_id=>session[:user_id], :isbn=>return_book.isbn%></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

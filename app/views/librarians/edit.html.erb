@@ -1,0 +1,5 @@
+<h1>Editing Librarian <%=User.where(id:@librarian[:user_id]).limit(1)[0][:name] %></h1>
+
+<%= render 'form', librarian: @librarian %>
+
+<%= link_to 'Show', @librarian %> |

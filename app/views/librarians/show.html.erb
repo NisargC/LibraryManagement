@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%=User.find(@librarian.user_id).name %>
+</p>
+
+<p>
+  <b>Email :</b>
+  <%=User.find(@librarian.user_id).email %>
+</p>
+
+
+<p>
+  <b>Library:</b>
+  <%=Library.find(@librarian.library_id).name %>
+</p>
+
+
+<%= link_to 'Edit', edit_librarian_path(@librarian) %>
+<td><%= link_to 'Cancel My Account?', @librarian, method: :delete, data: { confirm: 'Are you sure?' } %></td>

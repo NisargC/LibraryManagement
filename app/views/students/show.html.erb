@@ -1,0 +1,54 @@
+<h2><%= User.find(@student.user_id).name %>'s Profile</h2>
+
+<p id="notice"><%= notice %></p>
+
+<table id="table">
+  <tbody>
+  <tr>
+    <td>Name</td>
+    <td><%=User.find(@student.user_id).name %></td>
+  </tr>
+
+
+  <tr>
+    <td>Email</td>
+    <td><%=User.find(@student.user_id).email %></td>
+  </tr>
+
+  <tr>
+    <td>Education Level</td>
+    <td><%=@student.education_level %></td>
+  </tr>
+
+
+  <tr>
+    <td>University</td>
+    <td><%=@student.university %></td>
+  </tr>
+
+
+  <tr>
+    <td>Maximum Books Allowed</td>
+    <td><%=@student.max_books %></td>
+  </tr>
+
+
+  <tr>
+    <td>Borrow Count</td>
+    <td><%=@student.borrow_count%></td>
+  </tr>
+
+
+  <tr>
+    <td>Dues</td>
+    <td><%=@student.dues%></td>
+  </tr>
+
+  </tbody>
+</table>
+
+<br>
+<div id="createNewthings">
+<%= link_to 'Edit', edit_student_path(@student) %> <br><br>
+<td><%= link_to 'Cancel My Account?', @student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</div>
